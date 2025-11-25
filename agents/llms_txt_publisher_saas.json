@@ -1,0 +1,31 @@
+{
+	"schema_version": "1.0",
+	"agent_type": "specialized",
+	"name": "LLMS.txt Publisher SaaS",
+	"output": {
+		"type": "text",
+		"schema": null,
+		"description": "accesstoken"
+	},
+	"version": "1.0.0",
+	"agent_id": "llms_txt_publisher_saas",
+	"file_urls": [],
+	"is_active": true,
+	"creativity": 0.5,
+	"is_deleted": false,
+	"parameters": [
+		{
+			"name": "llmsTxt",
+			"type": "string",
+			"default": null,
+			"required": true,
+			"description": "the llms txt content created from @llms_txt_generator agent"
+		}
+	],
+	"description": "Publishes LLMS.txt data to SaaS CMS Page",
+	"enabled_tools": ["rest_request"],
+	"agent_metadata": null,
+	"inference_type": "simple",
+	"prompt_template": "Use the rest_request\ntool to retrieve the auth token this URL:\n\n{\n\n\"url\":\"&nbsp;https:\\\\api.cms.optimizely.com\\oauth\\token\"\n\n\"method\":\n\"POST\",\n\n\"body\":,\n\n{\n\n\"grant_type\":\n\"client_credentials\",\n\n\"client_id\":\n\"6d30f2959a304cfeaa065f20116ef526\",\n\n\"client_secret\":\n\"Rn1OYeXDJhMfbIGPHIgtfNBZQMxQcXNMJNDNxof0CuLvlWQX\",\n\n\"act_as\":\n\"sbsheik@nishtechinc.com\"\n\n}\n\n\"headers\":{\n\n'Content-Type': 'application/json',\n\n&nbsp; 'Authorization': 'Basic\nNmQzMGYyOTU5YTMwNGNmZWFhMDY1ZjIwMTE2ZWY1MjY6Um4xT1llWERKaE1mYklHUEhJZ3RmTkJaUU14UWNYTk1KTkROeG9mMEN1THZsV1FY'\n\n}\n\n}\n\n==Set&nbsp;[[accessToken]]==​ equal to the&nbsp;value of access_token from the authentication output response from the above current request only.\n\nUsing the rest_request tool populate and execute the following requst with&nbsp;[[accessToken]]​ from the auth request and [[llmsTxt]]​ as the body.\n\n{\n\nurl: 'https://api.cms.optimizely.com/preview3/experimental/content',\n\nmethod:'Post',\n\nbody: {\n\n  displayName: 'LLMS3',\n\n  key: '43f936c99b234ea397b261c538ad07d9',\n\n  status: 'published',\n\n  locale: 'en',\n\n  contentType: 'BlankExperience',\n\n  container: 'acc4d418d274457e8dcb2d414fb395ad',\n\n  properties: {\n\n'body': [[llmsTxt]]​\n\n  }\n\n},\n\nheaders: {\n\n'Content-type': 'application/json',\n\n'Accept-Encoding': gzip, deflate, br\n\n},\n\nauthtype:'bearer',\n\nbearertoken: [[accessToken]]​\n\n}",
+	"internal_version": 1
+}

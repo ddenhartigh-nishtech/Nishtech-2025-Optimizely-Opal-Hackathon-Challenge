@@ -1,0 +1,396 @@
+{
+	"schema_version": "1.0",
+	"agent_type": "specialized",
+	"name": "Business Competitive Analysis",
+	"output": {
+		"type": "json",
+		"schema": {
+			"type": "object",
+			"$schema": "http://json-schema.org/draft-07/schema#",
+			"required": [
+				"metadata",
+				"input_context",
+				"competitor_analysis_report"
+			],
+			"properties": {
+				"metadata": {
+					"type": "object",
+					"required": ["report_generated_on", "freshness_window"],
+					"properties": {
+						"freshness_window": {
+							"type": "object",
+							"required": ["start_date", "end_date", "note"],
+							"properties": {
+								"note": {
+									"type": "string"
+								},
+								"end_date": {
+									"type": "string",
+									"format": "date"
+								},
+								"start_date": {
+									"type": "string",
+									"format": "date"
+								}
+							}
+						},
+						"report_generated_on": {
+							"type": "string",
+							"format": "date",
+							"description": "Date in YYYY-MM-DD format"
+						}
+					}
+				},
+				"input_context": {
+					"type": "object",
+					"required": [
+						"targetUrl",
+						"topPages",
+						"contactInfo",
+						"addressInfo"
+					],
+					"properties": {
+						"topPages": {
+							"type": "array"
+						},
+						"targetUrl": {
+							"type": "string",
+							"format": "uri"
+						},
+						"addressInfo": {
+							"type": ["object", "array", "string"]
+						},
+						"contactInfo": {
+							"type": ["object", "array", "string"]
+						}
+					}
+				},
+				"competitor_analysis_report": {
+					"type": "object",
+					"required": [
+						"market_industry",
+						"competitors",
+						"strategic_recommendations"
+					],
+					"properties": {
+						"competitors": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"required": [
+									"name",
+									"website",
+									"qualification_criteria",
+									"recent_intelligence",
+									"comparative_assessment"
+								],
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"website": {
+										"type": "string",
+										"format": "uri"
+									},
+									"recent_intelligence": {
+										"type": "object",
+										"required": [
+											"news_and_press",
+											"company_blog_posts",
+											"events_and_webinars",
+											"thought_leadership_and_analysts",
+											"community_discussions"
+										],
+										"properties": {
+											"news_and_press": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"required": [
+														"headline",
+														"source",
+														"date_published",
+														"summary",
+														"verified_url"
+													],
+													"properties": {
+														"source": {
+															"type": "string"
+														},
+														"summary": {
+															"type": "string"
+														},
+														"headline": {
+															"type": "string"
+														},
+														"verified_url": {
+															"type": "string",
+															"format": "uri"
+														},
+														"date_published": {
+															"type": "string",
+															"format": "date"
+														}
+													}
+												}
+											},
+											"company_blog_posts": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"required": [
+														"title",
+														"date_published",
+														"summary",
+														"verified_url"
+													],
+													"properties": {
+														"title": {
+															"type": "string"
+														},
+														"summary": {
+															"type": "string"
+														},
+														"verified_url": {
+															"type": "string",
+															"format": "uri"
+														},
+														"date_published": {
+															"type": "string",
+															"description": "YYYY-MM-DD or 'Undated'"
+														}
+													}
+												}
+											},
+											"events_and_webinars": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"required": [
+														"event_name",
+														"date",
+														"link"
+													],
+													"properties": {
+														"date": {
+															"type": "string",
+															"format": "date"
+														},
+														"link": {
+															"type": "string",
+															"format": "uri"
+														},
+														"event_name": {
+															"type": "string"
+														}
+													}
+												}
+											},
+											"community_discussions": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"required": [
+														"platform",
+														"summary_of_activity",
+														"verified_url"
+													],
+													"properties": {
+														"platform": {
+															"type": "string"
+														},
+														"verified_url": {
+															"type": "string",
+															"format": "uri"
+														},
+														"summary_of_activity": {
+															"type": "string"
+														}
+													}
+												}
+											},
+											"thought_leadership_and_analysts": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"required": [
+														"source_or_author",
+														"sentiment",
+														"summary",
+														"verified_url"
+													],
+													"properties": {
+														"summary": {
+															"type": "string"
+														},
+														"sentiment": {
+															"enum": [
+																"Positive",
+																"Neutral",
+																"Negative"
+															],
+															"type": "string"
+														},
+														"verified_url": {
+															"type": "string",
+															"format": "uri"
+														},
+														"source_or_author": {
+															"type": "string"
+														}
+													}
+												}
+											}
+										}
+									},
+									"comparative_assessment": {
+										"type": "object",
+										"required": [
+											"strengths_vs_target",
+											"weaknesses_vs_target",
+											"market_position_relative_to_target",
+											"key_differentiators"
+										],
+										"properties": {
+											"key_differentiators": {
+												"type": "array",
+												"items": {
+													"type": "string"
+												}
+											},
+											"strengths_vs_target": {
+												"type": "array",
+												"items": {
+													"type": "string"
+												}
+											},
+											"weaknesses_vs_target": {
+												"type": "array",
+												"items": {
+													"type": "string"
+												}
+											},
+											"market_position_relative_to_target": {
+												"type": "string"
+											}
+										}
+									},
+									"qualification_criteria": {
+										"type": "object",
+										"required": [
+											"target_audience_match",
+											"business_model_overlap",
+											"keyword_competition"
+										],
+										"properties": {
+											"keyword_competition": {
+												"enum": [
+													"High",
+													"Medium",
+													"Low"
+												],
+												"type": "string"
+											},
+											"target_audience_match": {
+												"type": "boolean"
+											},
+											"business_model_overlap": {
+												"type": "boolean"
+											}
+										}
+									}
+								}
+							}
+						},
+						"market_industry": {
+							"type": "string",
+							"description": "e.g., SaaS Marketing Automation"
+						},
+						"strategic_recommendations": {
+							"type": "object",
+							"required": [
+								"marketing_actions",
+								"sales_battlecard_points"
+							],
+							"properties": {
+								"marketing_actions": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"required": ["action", "rationale"],
+										"properties": {
+											"action": {
+												"type": "string"
+											},
+											"rationale": {
+												"type": "string"
+											}
+										}
+									}
+								},
+								"sales_battlecard_points": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"required": ["point", "context"],
+										"properties": {
+											"point": {
+												"type": "string"
+											},
+											"context": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"description": "a JSON object containing a summary of this and the previous agents acquired data."
+	},
+	"version": "1.0.0",
+	"agent_id": "business_competitive_analysis",
+	"file_urls": [],
+	"is_active": true,
+	"creativity": 0.5,
+	"is_deleted": false,
+	"parameters": [
+		{
+			"name": "targetUrl",
+			"type": "string",
+			"default": null,
+			"required": true,
+			"description": "The url for the company / website that we are ultimately evaluating"
+		},
+		{
+			"name": "topPages",
+			"type": "object",
+			"default": null,
+			"required": true,
+			"description": "an array of objects with page title, link, and short description"
+		},
+		{
+			"name": "contactInfo",
+			"type": "object",
+			"default": null,
+			"required": true,
+			"description": "an object with phone numbers, emails, etc."
+		},
+		{
+			"name": "addressInfo",
+			"type": "object",
+			"default": null,
+			"required": true,
+			"description": "an object with address information"
+		}
+	],
+	"description": "Analyzes the targetUrl's market position, identifies the top 5 direct competitors, and evaluates their performance using recent (within the past 30 days) reputable news sources. Delivers strategic insights and actionable recommendations for competitive advantages and disadvantages in the targetUrl's market.",
+	"enabled_tools": ["browse_web", "get_today", "search_web"],
+	"agent_metadata": null,
+	"inference_type": "complex",
+	"prompt_template": "## Role:\n\nYou are a competitive intelligence and market research analyst. You are conducting competitor and market research, monitoring news, activities, industry trends, and keyword opportunities. You are responsible for synthesizing this research into a 30-day Competitive Intelligence Report with clear next best actions for the marketing and sales teams.&nbsp;\n\nFirst you need to ensure you know which competitor or competitors you need to research. \n\n## Goal:\n\nAnalyze the [[targetUrl]] market position, identifies the top 5 direct competitors, and evaluates their performance using recent (within the past 30 days) reputable news sources. Delivers strategic insights and actionable recommendations for competitive advantages and disadvantages in the [[targetUrl]]​'s market.\n\n**Freshness Guardrails (must follow)&nbsp;**\n\n1. Get the date window first\n  1. Call `get_today` to make sure you understand the current day\n  2. Compute `START = TODAY - 30 days` (inclusive) and `END = TODAY` (inclusive). Treat all comparisons using these 2 dates\n2. Hard filter everything by publish date within [START...END].&nbsp;\n  1. If a page doesn't clearly expose a publish date (ISO date, on-page timestamp, or in URL path) you must not include it unless you can confirm date via the site's RSS feed, sitemap or a canonical \"Published on\" element. If still unknown, exclude it.\n3. Verify every link. Before outputting any URL, open it with&nbsp;`browse_web` to ensure it's valid (not 404 or \"page not found\"). Only include links you opened.&nbsp;\n4. No backfilling. If no qualifying items exist in the last 30 days for a section, output \"No new items in the last 30 days\" (do not include older items)\n5. When using search you can add `after:YYYY-MM-DD` and `before:YYYY-MM-DD` to limit search result to days\n\n## Instructions:\n\n1. Use search_web to identify the market/industry of [[targetUrl]]​ and its top competitors.  For each of the top 5 direct competitors, evaluate the following criteria:\n  1. Same target audience\n  2. Similar business model\n  3. Competing for same keywords/traffic\n  4. Similar service offerings\n  5. Market positioning overlap\n2. Perform market research using search_web and browse_web tools\n  1. Scan the news in reputable outlets following the guardrails stated above\n  2. Gather competitor headlines from trusted outlets, newsroom updates, and press releases (focus on things like executive moves, funding, acquisitions, product launches). Prioritize reputable third-party news outlets over the company website. Follow the guardrails set.\n  3. For every shortlisted post, confirm that you have checked the date\n  4. ﻿﻿﻿Find any recent blog posts the company has published. If publish dates are shown, select posts following same guardrails. If no publish dates are shown, take the top 3 posts from the blog listing page.\n  5. ﻿﻿﻿Find any events or webinars that the competitor has upcoming\n  6. ﻿﻿﻿Take the competitor's industry and find thought leaders in that industry, then find out if they have been saying anything about the competitors, same freshness guardrails apply.\n  7. ﻿﻿﻿Read and summarize analyst blogs; try to meet the guardrails if dates are available on the post\n  8. ﻿﻿﻿Find any communities and forums related to this competitor's industry and summarize any activity or commentary that mentions the competitor meeting same freshness guardrails.\n  9. ﻿﻿﻿Compile recommendations: Based on the above research, suggest clear next best actions for the marketing and sales teams. Remember you are giving these suggestions from the perspective of a competitor to [[competitor]].​\n  10. ﻿﻿﻿For every link you provide in the report, open it with browse_web tool to verify that the link is valid and does not return a 404 or \"page not found\" error before including it in the output. Never invent or guess URLs. Only output URLs you actually opened via browse_web\n3. Use Competitive Comparison: How do they compare to the target site?\n  1. Strengths vs [[targetUrl]]\n  2. Weaknesses vs [[targetUrl]]\n  3. Market position relative to [[targetUrl]]\n    1. Key differentiators\n\n## Output Format:\n\n```\n{\n  \"metadata\": {\n    \"report_generated_on\": \"YYYY-MM-DD\",\n    \"freshness_window\": {\n      \"start_date\": \"YYYY-MM-DD\",\n      \"end_date\": \"YYYY-MM-DD\",\n      \"note\": \"Strict 30-day window applied.\"\n    }\n  },\n  \"input_context\": {\n    \"targetUrl\": \"[[targetUrl]]\",\n    \"topPages\": [[topPages]],\n    \"contactInfo\": [[contactInfo]],\n    \"addressInfo\": [[addressInfo]]\n  },\n  \"competitor_analysis_report\": {\n    \"market_industry\": \"String (e.g., SaaS Marketing Automation)\",\n    \"competitors\": [\n      {\n        \"name\": \"Competitor Name\",\n        \"website\": \"Competitor URL\",\n        \"qualification_criteria\": {\n          \"target_audience_match\": true,\n          \"business_model_overlap\": true,\n          \"keyword_competition\": \"High/Medium/Low\"\n        },\n        \"recent_intelligence\": {\n          \"news_and_press\": [\n            {\n              \"headline\": \"String\",\n              \"source\": \"String (e.g., TechCrunch)\",\n              \"date_published\": \"YYYY-MM-DD\",\n              \"summary\": \"String\",\n              \"verified_url\": \"String (Must be 200 OK)\"\n            }\n          ],\n          \"company_blog_posts\": [\n            {\n              \"title\": \"String\",\n              \"date_published\": \"YYYY-MM-DD or 'Undated'\",\n              \"summary\": \"String\",\n              \"verified_url\": \"String\"\n            }\n          ],\n          \"events_and_webinars\": [\n            {\n              \"event_name\": \"String\",\n              \"date\": \"YYYY-MM-DD\",\n              \"link\": \"String\"\n            }\n          ],\n          \"thought_leadership_and_analysts\": [\n            {\n              \"source_or_author\": \"String\",\n              \"sentiment\": \"Positive/Neutral/Negative\",\n              \"summary\": \"String\",\n              \"verified_url\": \"String\"\n            }\n          ],\n          \"community_discussions\": [\n            {\n              \"platform\": \"String (e.g., Reddit, G2)\",\n              \"summary_of_activity\": \"String\",\n              \"verified_url\": \"String\"\n            }\n          ]\n        },\n        \"comparative_assessment\": {\n          \"strengths_vs_target\": [\n            \"String\"\n          ],\n          \"weaknesses_vs_target\": [\n            \"String\"\n          ],\n          \"market_position_relative_to_target\": \"String\",\n          \"key_differentiators\": [\n            \"String\"\n          ]\n        }\n      }\n    ],\n    \"strategic_recommendations\": {\n      \"marketing_actions\": [\n        {\n          \"action\": \"String\",\n          \"rationale\": \"String based on specific competitor finding\"\n        }\n      ],\n      \"sales_battlecard_points\": [\n        {\n          \"point\": \"String\",\n          \"context\": \"String (e.g., 'When prospect mentions Competitor X's new feature, say this...')\"\n        }\n      ]\n    }\n  }\n}\n```",
+	"internal_version": 20
+}

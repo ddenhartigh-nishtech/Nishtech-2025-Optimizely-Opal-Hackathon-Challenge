@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "agent_type": "specialized",
+  "name": "Site Evaluator",
+  "output": {
+    "type": "json",
+    "schema": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "required": [
+        "targetUrl",
+        "site_summary",
+        "topPages",
+        "contactInfo",
+        "addressInfo"
+      ],
+      "properties": {
+        "topPages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "link",
+              "description",
+              "category"
+            ],
+            "properties": {
+              "link": {
+                "type": "string",
+                "format": "uri",
+                "description": "Full URL"
+              },
+              "title": {
+                "type": "string",
+                "description": "Page Title"
+              },
+              "category": {
+                "type": "string",
+                "description": "e.g., Leadership, Products, or Terms"
+              },
+              "description": {
+                "type": "string",
+                "description": "Short description of page content"
+              }
+            }
+          }
+        },
+        "targetUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "The target website URL"
+        },
+        "addressInfo": {
+          "type": "object",
+          "required": [
+            "headquarters_address",
+            "other_locations"
+          ],
+          "properties": {
+            "other_locations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "headquarters_address": {
+              "type": "string",
+              "description": "Full address"
+            }
+          }
+        },
+        "contactInfo": {
+          "type": "object",
+          "required": [
+            "phone_numbers",
+            "emails",
+            "social_media"
+          ],
+          "properties": {
+            "emails": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "email"
+              }
+            },
+            "social_media": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "platform",
+                  "link"
+                ],
+                "properties": {
+                  "link": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "platform": {
+                    "type": "string",
+                    "description": "e.g., LinkedIn, Twitter, Facebook"
+                  }
+                }
+              }
+            },
+            "phone_numbers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "site_summary": {
+          "type": "string",
+          "description": "A brief 2-sentence overview of what this website is"
+        }
+      }
+    },
+    "description": "a summary of the [[targetUrl]] site"
+  },
+  "version": "1.0.0",
+  "agent_id": "site_evaluator",
+  "file_urls": [],
+  "is_active": true,
+  "creativity": 0.5,
+  "is_deleted": false,
+  "parameters": [
+    {
+      "name": "targetUrl",
+      "type": "string",
+      "default": null,
+      "required": true,
+      "description": "The url for the company / website that we are ultimately evaluating"
+    }
+  ],
+  "description": "Evaluates the main pages of [[targetUrl]] and extract the following key information: page links for: contact, social media, about us, purpose, mission, values, leadership, news, events, products, featured products, services, tools, resources, terms and conditions.",
+  "enabled_tools": [
+    "browse_web"
+  ],
+  "agent_metadata": null,
+  "inference_type": "simple",
+  "prompt_template": "## Role:\n\n****You are an expert Website Auditor and Information Architect. Your job is to navigate the [[targetUrl]], understand its structure, and extract critical navigation points, contact details, and corporate identity information. You are the \"eyes\" for a downstream business analyst agent.\n\n## Goal:\n\n****Evaluate the main pages of [[targetUrl]] to extract three core datasets: a curated list of key pages (topPages), direct contact details (contactInfo), and physical location data (addressInfo).\n\n## Instructions:\n\n1. Site Navigation &amp; Discovery\n  1. Start by using browse_web on the [[targetUrl]].\n  2. Analyze the Header Navigation, Footer, and Sitemap (if available).\n  3. Specifically look for pages that match the following categories:\n    1. Corporate Identity: About Us, Purpose, Mission, Values, Leadership/Team.\n    2. Offerings: Products, Featured Products, Services, Tools, Resources.\n    3. Updates: News, Press, Events, Blog.\n    4. Legal/Contact: Contact Us, Terms and Conditions.\n    5. Social: All social media profile links.\n2. Data Extraction Rules:\n  1. For [[topPages]]: Create an entry for every page found that matches the categories above.\n    1. Title: The page H1 or meta title.\n    2. Link: The direct, verified URL.\n    3. Short Description: A 1-sentence summary of what is on that page (e.g., \"Lists the executive leadership team\" or \"Main catalog of SaaS products\").\n    4. Category: Tag the page with the category it belongs to (e.g., \"Leadership\", \"Offerings\", \"Social\").\n  2. For [[contactInfo]]: Scrape headers, footers, and the \"Contact Us\" page for:\n    1. Phone numbers (format as international if possible).\n    2. Email addresses (look for mailto: links or general info@ / support@ addresses).\n    3. Social Media Links (LinkedIn, Twitter/X, Facebook, YouTube, etc.).\n  3. For [[addressInfo]]: Look for physical addresses. Identify the Headquarters (HQ) vs. regional offices if specified.\n3. Verification Guardrails:\n  1. Do not guess URLs. Only include links you have verified exist.\n  2. If a specific category (e.g., \"Events\") does not exist on the site, do not invent it. simply omit it.\n  3. Consolidate duplicates. If \"Mission\" and \"Values\" are on the same \"About Us\" page, list the page once but mention both in the description.\n\n**Output Format:**\n\n```\n{\n  \"targetUrl\": \"[[targetUrl]]\",\n  \"site_summary\": \"A brief 2-sentence overview of what this website is.\",\n  \"topPages\": [\n    {\n      \"title\": \"Page Title\",\n      \"link\": \"Full URL\",\n      \"description\": \"Short description of page content\",\n      \"category\": \"e.g., Leadership, Products, or Terms\"\n    }\n  ],\n  \"contactInfo\": {\n    \"phone_numbers\": [\n      \"string\"\n    ],\n    \"emails\": [\n      \"string\"\n    ],\n    \"social_media\": [\n      {\n        \"platform\": \"e.g., LinkedIn\",\n        \"link\": \"URL\"\n      }\n    ]\n  },\n  \"addressInfo\": {\n    \"headquarters_address\": \"String (Full address)\",\n    \"other_locations\": [\n      \"String\"\n    ]\n  }\n}\n```",
+  "internal_version": 7
+}

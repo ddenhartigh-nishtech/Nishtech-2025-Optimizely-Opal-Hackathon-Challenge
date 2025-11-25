@@ -1,0 +1,151 @@
+{
+	"schema_version": "1.0",
+	"agent_type": "workflow",
+	"name": "LLMS.txt Workflow",
+	"description": "orchestrates @site_evaluator, @business_competitive_analysis, @llms_txt_generator to generate a LLMs.txt file.\nStretch goal: write tooling and agents that would publish this to a site's /LLMS.txt file (though currently such a file does not exist at the root of Opti B2B sites.",
+	"version": "",
+	"agent_id": "llms_txt_workflow",
+	"objective": "",
+	"plan": "",
+	"is_active": true,
+	"is_deleted": false,
+	"agent_metadata": {
+		"edges": [
+			{
+				"id": "e899be19-f636-478c-9d89-bff54ed16cba",
+				"source": "4f3d2e4f-0456-406b-9c7c-5ff143a4d3d9",
+				"target": "78723adf-47e7-486b-a211-019e93495281"
+			},
+			{
+				"id": "a3ecca42-b596-4999-9b44-62ba4ea56ffb",
+				"source": "ac3aace0-6dc1-47ae-8b4a-d6de71914c75",
+				"target": "4f3d2e4f-0456-406b-9c7c-5ff143a4d3d9"
+			},
+			{
+				"id": "17e37c25-6470-485a-b304-c45877e0b0d5",
+				"source": "78723adf-47e7-486b-a211-019e93495281",
+				"target": "fcc9523d-8932-4ef1-a450-f1c25c843156"
+			},
+			{
+				"id": "5051c674-c1da-47e3-9b11-fc9b55262c7d",
+				"source": "40e1a074-f7e3-4d9e-b63e-4dbd9e4864ba",
+				"target": "ac3aace0-6dc1-47ae-8b4a-d6de71914c75"
+			}
+		],
+		"nodes": [
+			{
+				"id": "40e1a074-f7e3-4d9e-b63e-4dbd9e4864ba",
+				"measured": {
+					"width": 248,
+					"height": 108
+				},
+				"position": {
+					"x": 345,
+					"y": 30
+				}
+			},
+			{
+				"id": "4f3d2e4f-0456-406b-9c7c-5ff143a4d3d9",
+				"measured": {
+					"width": 248,
+					"height": 108
+				},
+				"position": {
+					"x": 645,
+					"y": 180
+				}
+			},
+			{
+				"id": "fcc9523d-8932-4ef1-a450-f1c25c843156",
+				"measured": {
+					"width": 248,
+					"height": 108
+				},
+				"position": {
+					"x": 345,
+					"y": 330
+				}
+			},
+			{
+				"id": "ac3aace0-6dc1-47ae-8b4a-d6de71914c75",
+				"measured": {
+					"width": 248,
+					"height": 108
+				},
+				"position": {
+					"x": 345,
+					"y": 180
+				}
+			},
+			{
+				"id": "78723adf-47e7-486b-a211-019e93495281",
+				"measured": {
+					"width": 248,
+					"height": 108
+				},
+				"position": {
+					"x": 645,
+					"y": 330
+				}
+			}
+		]
+	},
+	"internal_version": 13,
+	"steps": [
+		{
+			"step_id": "4f3d2e4f-0456-406b-9c7c-5ff143a4d3d9",
+			"step_type": "specialized",
+			"name": "Business Competitive Analysis",
+			"description": "Analyzes the targetUrl's market position, identifies the top 5 direct competitors, and evaluates their performance using recent (within the past 30 days) reputable news sources. Delivers strategic insights and actionable recommendations for competitive advantages and disadvantages in the targetUrl's market.",
+			"agent_id": "business_competitive_analysis",
+			"parameters_schema": {},
+			"next_step_id": "78723adf-47e7-486b-a211-019e93495281",
+			"timeout_seconds": 3600
+		},
+		{
+			"step_id": "fcc9523d-8932-4ef1-a450-f1c25c843156",
+			"step_type": "specialized",
+			"name": "LLMS.txt Publisher SaaS",
+			"description": "Publishes LLMS.txt data to SaaS CMS Page",
+			"agent_id": "llms_txt_publisher_saas",
+			"parameters_schema": {},
+			"next_step_id": null,
+			"timeout_seconds": 3600
+		},
+		{
+			"step_id": "ac3aace0-6dc1-47ae-8b4a-d6de71914c75",
+			"step_type": "specialized",
+			"name": "Site Evaluator",
+			"description": "Evaluates the main pages of [[targetUrl]] and extract the following key information: page links for: contact, social media, about us, purpose, mission, values, leadership, news, events, products, featured products, services, tools, resources, terms and conditions.",
+			"agent_id": "site_evaluator",
+			"parameters_schema": {},
+			"next_step_id": "4f3d2e4f-0456-406b-9c7c-5ff143a4d3d9",
+			"timeout_seconds": 3600
+		},
+		{
+			"step_id": "78723adf-47e7-486b-a211-019e93495281",
+			"step_type": "specialized",
+			"name": "LLMS.txt Generator",
+			"description": "An expert system specializing in synthesizing detailed web page audits and competitive intelligence into a structured, citation-ready LLMS.txt file. This file guides large language models on how to accurately understand, cite, and attribute the content, maximizing its visibility and E-E-A-T signals in generative search.",
+			"agent_id": "llms_txt_generator",
+			"parameters_schema": {},
+			"next_step_id": "fcc9523d-8932-4ef1-a450-f1c25c843156",
+			"timeout_seconds": 3600
+		}
+	],
+	"specialized_agents_required": [
+		"business_competitive_analysis",
+		"site_evaluator",
+		"llms_txt_generator",
+		"llms_txt_publisher_saas"
+	],
+	"triggers": [
+		{
+			"trigger_id": "40e1a074-f7e3-4d9e-b63e-4dbd9e4864ba",
+			"trigger_type": "message",
+			"name": "Chat Input",
+			"description": "Trigger when user sends a message \"@llms_workflow\"",
+			"is_active": true
+		}
+	]
+}
