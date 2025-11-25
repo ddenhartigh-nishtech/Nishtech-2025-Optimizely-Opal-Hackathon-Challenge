@@ -13,7 +13,7 @@ The repo is organized into four main sections:
 
 ## Repository Structure
 
-    C:.
+    root
     │   ReadMe.md
     │
     ├───agents
