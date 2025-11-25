@@ -14,7 +14,6 @@ The repo is organized into four main sections:
 ## Repository Structure
 
     C:.
-    │   Nishtech One Pager.pdf
     │   ReadMe.md
     │
     ├───agents
@@ -29,6 +28,7 @@ The repo is organized into four main sections:
     │
     ├───presentation
     │       Nishtech Opal Hackathon Slide Deck.pdf
+    │       Nishtech One Pager.pdf
     │
     └───tools
             rest_reques.ts
@@ -53,27 +53,23 @@ All agents are located in: `/agents`
 
 ### Key Agents
 
-| Agent                                                                                                                                                                          | Description                                                              | Link |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ---- |
-| [LLMS TXT Generator](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/llms_txt_generator.json)                       | Crawls a target site, performs competitive research, and drafts LLMS.txt |      |
-| [LLMS TXT Workflow](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/llms_txt_workflow.json)                         | Orchestrates the full generation process, triggered via chat             |      |
-| [LLMS TXT Publisher (SaaS)](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/llms_txt_publisher_saas.json)           | Publishes the generated LLMS.txt to an Optimizely SaaS instance          |      |
-| [Business Competitive Analysis](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/business_competitive_analysis.json) | Performs market and competitor research                                  |      |
-| [Site Evaluator](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/site_evaluator.json)                               | Evaluates structure, performance, and content quality                    |      |
+| Agent                                                                                                                                                                          | Description                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| [LLMS TXT Generator](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/llms_txt_generator.json)                       | Crawls a target site, performs competitive research, and drafts LLMS.txt |
+| [LLMS TXT Workflow](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/llms_txt_workflow.json)                         | Orchestrates the full generation process, triggered via chat             |
+| [LLMS TXT Publisher (SaaS)](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/llms_txt_publisher_saas.json)           | Publishes the generated LLMS.txt to an Optimizely SaaS instance          |
+| [Business Competitive Analysis](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/business_competitive_analysis.json) | Performs market and competitor research                                  |
+| [Site Evaluator](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/agents/site_evaluator.json)                               | Evaluates structure, performance, and content quality                    |
 
 ## Instructions
 
 Documentation, prompts, and workflow notes exist in: `/instructions`
 
-Main file:
-
 -   [instructions.md](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/instructions/instructions.md)
 
 ## Tools
 
-Helper scripts supporting the agents live in: `/tools`
-
-Key tool:
+Custom tooling for empowering Opal agents live in: `/tools`
 
 -   [rest_reques.ts](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/tools/rest_reques.ts)
 
@@ -82,8 +78,6 @@ Key tool:
 `/presentation`
 
 -   [Nishtech Opal Hackathon Slide Deck.pdf](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/presentation/Nishtech%20Opal%20Hackathon%20Slide%20Deck.pdf)
-
-You can also reference the high-level overview:
 
 -   [Nishtech One Pager.pdf](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/Nishtech%20One%20Pager.pdf)
 
