@@ -15,6 +15,7 @@ The repo is organized into four main sections:
 
     root
     │   ReadMe.md
+    |   2025-Opti-Opal-Hackathon.zip
     │
     ├───agents
     │       business_competitive_analysis.json
@@ -49,7 +50,7 @@ This project demonstrates how Optimizely Opal AI can be used to:
 
 ## Agents
 
-All agents are located in: `/agents`
+All custom Opal agents are located in: `/agents`
 
 ### Key Agents
 
@@ -77,6 +78,8 @@ Custom tooling for empowering Opal agents live in: `/tools`
 
 `/presentation`
 
+-   [HackathonPresentation.mp4](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/HackathonPresentation.mp4)
+
 -   [Nishtech Opal Hackathon Slide Deck.pdf](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/presentation/Nishtech%20Opal%20Hackathon%20Slide%20Deck.pdf)
 
 -   [Nishtech One Pager.pdf](https://github.com/ddenhartigh-nishtech/Nishtech-2025-Optimizely-Opal-Hackathon-Challenge/blob/main/Nishtech%20One%20Pager.pdf)
@@ -89,7 +92,7 @@ From within Opal chat:
 
 Opal will:
 
-1.  Crawl the target site
-2.  Analyze content and competitors
-3.  Generate LLMS.txt
-4.  Publish it (if connected to SaaS)
+1.  Crawl the target site for general information and main pages
+2.  Analyze recent content and competitors, perform competitive analysis
+3.  Generate LLMS.txt from collected data
+4.  Publish LLMS.txt
